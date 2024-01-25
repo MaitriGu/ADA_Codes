@@ -1,0 +1,59 @@
+#include<iostream>
+#include<vector>
+#include<cstdlib>
+#include<ctime>
+#include<bits/stdc++.h>
+using namespace std;
+int Time_calculation();
+vector<int> Generate(int);
+void Selection_Sort(vector<int>,int);
+int main()
+{	
+double t=Time_calculation();
+
+}
+void Selection_Sort(vector<int>z,int num)
+{
+	for(int i=0;i<num;i++)
+	{
+		int min=i;
+		for(int j=i+1;j<num;j++)
+		{
+		if(z[j]<z[min])
+		{
+			min=j;
+		}	
+		}
+		if(i!=min){
+			int temp=z[min];
+			z[min]=z[i];
+			z[i]=temp;
+		}
+	}
+}
+int Time_calculation()
+{   
+    vector<int> Lists;
+    clock_t start,end;
+    int i=8000;
+	Lists=Generate(i);
+	start=clock();
+	for(int m=1;m<=10;m++)
+    { 
+    Selection_Sort(Lists,i);
+	}
+	end=clock();
+	double time_taken=double(end-start)/double(CLOCKS_PER_SEC);
+	double result= time_taken/10.0;
+	cout<<result<<setprecision(10)<<endl;
+}
+
+vector<int> Generate(int x)
+{
+	vector<int>a;
+	for(int j=1;j<x;j++)
+	{
+		a.push_back(int(rand()%x));
+	}
+	return a;
+}
