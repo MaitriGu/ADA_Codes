@@ -1,0 +1,56 @@
+#include<iostream>
+#include<vector>
+#include<cstdlib>
+#include<ctime>
+#include<bits/stdc++.h>
+using namespace std;
+
+void swap(char &x, char &y) {
+    char temp = x;
+    x = y;
+    y = temp;
+}
+
+void Permutation_Gen(vector<char> p, int k, int num) {
+    if (k == num) {
+        for (int l = 0; l < num; l++) {
+            cout << p[l] << " ";
+        }
+        cout << endl;
+    } else {
+        for (int l = k; l < num; l++) {
+            swap(p[l], p[k]);
+            Permutation_Gen(p, k + 1, num);
+            swap(p[l], p[k]);
+        }
+    }
+}
+
+vector<char> Generate(int x) {
+    vector<char> a;
+    for (int j = 1; j <= x; j++) {
+        a.push_back(char(j + 64));
+    }
+    return a;
+}
+
+int Time_calculation() {
+    vector<char> Lists;
+    clock_t start, end;
+    int i = 3;
+    Lists = Generate(i);
+    start = clock();
+    for (int m = 1; m <= 10; m++) {
+        Permutation_Gen(Lists, 0, i);
+    }
+    end = clock();
+    double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+    double result = time_taken / 10.0;
+    cout << result << setprecision(10) << endl;
+    return 0;
+}
+
+int main() {
+    double t = Time_calculation();
+    return 0;
+}
