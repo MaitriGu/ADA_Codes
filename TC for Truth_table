@@ -1,0 +1,39 @@
+#include<iostream>
+#include<vector>
+#include<cstdlib>
+#include<ctime>
+#include<bits/stdc++.h>
+using namespace std;
+int Time_calculation();
+void Hanoi_Tower(int,char,char,char);
+int main()
+{	
+double t=Time_calculation();
+
+}
+void Hanoi_Tower(int n,char source,char to,char destination)
+{
+	if(n>=1){
+		Hanoi_Tower(n-1,source,destination,to);
+		cout<<"Move 1 disk from"<<source<<"to"<<destination;
+		Hanoi_Tower(n-1,to,source,destination);
+	}
+}
+int Time_calculation()
+{   
+    clock_t start,end;
+    int i=9;
+	start=clock();
+	char A ='A';
+	char B ='B';
+	char C ='C';
+	for(int m=1;m<=10;m++)
+    { 
+    Hanoi_Tower(i,A,B,C);
+	}
+	end=clock();
+	double time_taken=double(end-start)/double(CLOCKS_PER_SEC);
+	double result= time_taken/10.0;
+	cout<<result<<setprecision(10)<<endl;
+}
+
