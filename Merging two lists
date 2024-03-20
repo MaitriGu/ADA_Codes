@@ -1,0 +1,65 @@
+#include <iostream>
+#include <vector>
+#include <ctime>
+using namespace std;
+
+double Time_calculation();
+vector<int> Merge(vector<int>&, vector<int>&);
+
+int main() {
+    double t = Time_calculation();
+    cout << "Time taken: " << t << " seconds" << endl;
+    return 0;
+}
+
+double Time_calculation() {
+    clock_t start, end;
+    vector<int> list1 = {1, 3, 5, 7, 9}; // Sorted list 1
+    vector<int> list2 = {2, 4, 6, 8, 10}; // Sorted list 2
+    start = clock();
+    for (int m = 1; m <= 1; m++) { // Only running once as per the original code
+        cout << "Sorted List 1: ";
+        for (int num : list1) {
+            cout << num << " ";
+        }
+        cout << endl;
+        cout << "Sorted List 2: ";
+        for (int num : list2) {
+            cout << num << " ";
+        }
+        cout << endl;
+
+        vector<int> mergedList = Merge(list1, list2);
+        cout << "Merged List: ";
+        for (int num : mergedList) {
+            cout << num << " ";
+        }
+        cout << endl;
+    }
+    end = clock();
+    double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+    return time_taken;
+}
+
+vector<int> Merge(vector<int>& list1, vector<int>& list2) {
+    vector<int> mergedList;
+    int i = 0, j = 0;
+    while (i < list1.size() && j < list2.size()) {
+        if (list1[i] <= list2[j]) {
+            mergedList.push_back(list1[i]);
+            i++;
+        } else {
+            mergedList.push_back(list2[j]);
+            j++;
+        }
+    }
+    while (i < list1.size()) {
+        mergedList.push_back(list1[i]);
+        i++;
+    }
+    while (j < list2.size()) {
+        mergedList.push_back(list2[j]);
+        j++;
+    }
+    return mergedList;
+}
