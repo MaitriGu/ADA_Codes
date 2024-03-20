@@ -5,35 +5,36 @@
 #include<bits/stdc++.h>
 using namespace std;
 int Time_calculation();
-void Hanoi_Tower(int,char,char,char);
-int main()
-{	
+void Truth_Table(int,int);
+int main(){	
 double t=Time_calculation();
-
-}
-void Hanoi_Tower(int n,char source,char to,char destination)
-{
-	if(n>=1){
-		Hanoi_Tower(n-1,source,destination,to);
-		cout<<"Move 1 disk from"<<source<<"to"<<destination;
-		Hanoi_Tower(n-1,to,source,destination);
-	}
 }
 int Time_calculation()
 {   
     clock_t start,end;
-    int i=9;
+    int i=4;
 	start=clock();
-	char A ='A';
-	char B ='B';
-	char C ='C';
-	for(int m=1;m<=10;m++)
-    { 
-    Hanoi_Tower(i,A,B,C);
+	for(int m=1;m<=1;m++){ 
+    Truth_Table(0,i-1);
 	}
 	end=clock();
 	double time_taken=double(end-start)/double(CLOCKS_PER_SEC);
 	double result= time_taken/10.0;
 	cout<<result<<setprecision(10)<<endl;
 }
+void Truth_Table(int k,int n){
+	vector<char>x(n+1);
+	if(k==n+1){
+	for(int i =1;i<=n;i++){
+		cout<<x[i]<<" ";
+	}
+	cout<<endl;
+}
+	else{
+		x[k]='T';
+		Truth_Table(k+1,n);
+		x[k]='F';
+		Truth_Table(k+1,n);
+	}
+	}
 
