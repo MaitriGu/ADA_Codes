@@ -1,0 +1,73 @@
+#include <iostream>
+#include <vector>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+
+double Time_calculation();
+void QuickSort(vector<int>&, int, int);
+int Partition(vector<int>&, int, int);
+void PrintList(const vector<int>&);
+vector<int> GenerateArray(int);
+
+int main() {
+    double t = Time_calculation();
+    cout << "Time taken: " << t << " seconds" << endl;
+    return 0;
+}
+
+double Time_calculation() {
+    clock_t start, end;
+    vector<int> arr = GenerateArray(10);
+    start = clock();
+    for (int m = 1; m <= 1; m++) {
+        cout << "Initial Unsorted Array: ";
+        PrintList(arr);
+
+        QuickSort(arr, 0, arr.size() - 1);
+
+        cout << "Final Sorted Array: ";
+        PrintList(arr);
+    }
+    end = clock();
+    double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+    return time_taken;
+}
+
+void QuickSort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pivot_index = Partition(arr, low, high);
+        cout << "Pivot Element Index: " << pivot_index << endl;
+        QuickSort(arr, low, pivot_index - 1);
+        QuickSort(arr, pivot_index + 1, high);
+    }
+}
+
+int Partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void PrintList(const vector<int>& arr) {
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
+}
+
+vector<int> GenerateArray(int size) {
+    vector<int> arr(size);
+    srand(time(0));
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % 100;
+    }
+    return arr;
+}
