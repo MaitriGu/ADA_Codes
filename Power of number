@@ -1,0 +1,39 @@
+#include<iostream>
+#include<cmath>
+#include<ctime>
+using namespace std;
+
+double Time_calculation();
+long long Power(int, int);
+
+int main() {
+    double t = Time_calculation();
+    cout << "Time taken: " << t << " seconds" << endl;
+    return 0;
+}
+
+double Time_calculation() {
+    clock_t start, end;
+    int base = 2; 
+    int exponent = 10; 
+    start = clock();
+    for (int m = 1; m <= 1; m++) { 
+       int d= Power(base, exponent);
+       cout<<d;
+    }
+    end = clock();
+    double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+    return time_taken;
+}
+
+long long Power(int base, int exponent) {
+    long long result = 1;
+    while (exponent > 0) {
+        if (exponent % 2 == 1) {
+            result *= base;
+        }
+        base *= base;
+        exponent /= 2;
+    }
+    return result;
+}
