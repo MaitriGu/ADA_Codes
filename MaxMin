@@ -1,0 +1,75 @@
+#include <iostream>
+#include <chrono>
+#include <cstdlib>
+
+using namespace std;
+using namespace std::chrono;
+
+void gen_input(int arr[], int k) {
+    for(int i = 0; i < k; i++) {
+        arr[i] = rand();
+    }
+}
+
+void MaxMin(int arr[], int low, int high, int *max, int *min) {
+    if(low == high) {
+        *max = arr[low];
+        *min = arr[low];
+    }
+    else if(low == high - 1) {
+        if(arr[low] > arr[high]) {
+            *max = arr[low];
+            *min = arr[high];
+        }
+        else {
+            *max = arr[high];
+            *min = arr[low];
+        }
+    }
+    else {
+        int mid = (low + high) / 2;
+        MaxMin(arr, 0, mid, max, min);
+        int min1, max1;
+        MaxMin(arr, mid + 1, high, &max1, &min1);
+
+        if(max1 > *max) {
+            *max = max1;
+        }
+        if(min1 < *min) {
+            *min = min1;
+        }
+    }
+}
+
+int main() {
+    const int length = 20;
+    int *arr = new int[length];
+    int max, min;
+
+    gen_input(arr, length);
+
+    cout << "Generated Array: ";
+    for (int j = 0; j < length; j++) {
+        cout << arr[j] << " ";
+    }
+    cout << endl;
+
+    auto start = high_resolution_clock::now();
+    MaxMin(arr , 0, length - 1, &max, &min);
+    auto stop = high_resolution_clock::now();
+
+    auto dur = stop - start;
+
+    // Calculate time in your way
+    long long time_ns = duration_cast<nanoseconds>(dur).count();
+    time_ns /= 10;
+
+    cout << "Length of Array = " << length << endl;
+    cout << "Time = " << time_ns << " ns" << endl;
+    cout << "Maximum Element: " << max << endl;
+    cout << "Minimum Element: " << min << endl;
+
+    delete[] arr;
+
+    return 0;
+}
