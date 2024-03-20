@@ -1,0 +1,72 @@
+#include <iostream>
+#include <vector>
+#include <ctime>
+using namespace std;
+
+double Time_calculation();
+void MergeSort(vector<int>&, int, int);
+void Merge(vector<int>&, int, int, int);
+void PrintList(const vector<int>&);
+
+int main() {
+    double t = Time_calculation();
+    cout << "Time taken: " << t << " seconds" << endl;
+    return 0;
+}
+
+double Time_calculation() {
+    clock_t start, end;
+    vector<int> arr = {5, 2, 9, 1, 5, 6, 3, 8, 4, 7}; // Change the elements as per your requirement
+    start = clock();
+    for (int m = 1; m <= 1; m++) { // Only running once as per the original code
+        cout << "Initial Unsorted List: ";
+        PrintList(arr);
+
+        MergeSort(arr, 0, arr.size() - 1);
+
+        cout << "Final Sorted List: ";
+        PrintList(arr);
+    }
+    end = clock();
+    double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+    return time_taken;
+}
+
+void MergeSort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int mid = low + (high - low) / 2;
+        MergeSort(arr, low, mid);
+        MergeSort(arr, mid + 1, high);
+        Merge(arr, low, mid, high);
+    }
+}
+
+void Merge(vector<int>& arr, int low, int mid, int high) {
+    vector<int> temp(high - low + 1);
+    int i = low, j = mid + 1, k = 0;
+    while (i <= mid && j <= high) {
+        if (arr[i] <= arr[j]) {
+            temp[k++] = arr[i++];
+        } else {
+            temp[k++] = arr[j++];
+        }
+    }
+    while (i <= mid) {
+        temp[k++] = arr[i++];
+    }
+    while (j <= high) {
+        temp[k++] = arr[j++];
+    }
+    for (int p = 0; p < temp.size(); p++) {
+        arr[low + p] = temp[p];
+    }
+    cout << "Merged List: ";
+    PrintList(arr);
+}
+
+void PrintList(const vector<int>& arr) {
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
+}
